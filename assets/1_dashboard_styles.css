@@ -1,0 +1,43 @@
+.indicator_title {
+    text-align: center;
+    width: 220px;
+}
+
+.progress_title {
+    text-align: center;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.section_title {
+    text-align: center;
+}
+
+.second_section{
+    margin-top: 20px;
+}
+
+.DateRangePickerInput{
+    border: 0px;
+    background-color: transparent;
+}
+
+.control_container{
+    margin-left: 5%;
+    margin-top: 1%;
+}
+
+@media (max-width: 64em) {
+    .Select-placeholder{
+        text-align: center;
+    }
+
+    .control_container{
+        margin-left: 0.5%;
+        margin-top: 1%;
+    }
+
+    .period_and_movement{
+        margin-left: 10%;
+    }
+}
