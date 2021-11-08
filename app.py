@@ -24,6 +24,8 @@ app = dash.Dash(__name__, external_stylesheets=[
 )
 server = app.server
 
+app.title = 'Airport Traffic Dashboard'
+
 with open('assets/europe.geojson') as file:
     countries = json.load(file)
 
