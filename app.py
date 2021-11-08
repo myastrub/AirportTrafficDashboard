@@ -17,7 +17,7 @@ from datetime import date
 app = dash.Dash(__name__, external_stylesheets=[
     dbc.themes.BOOTSTRAP,
     '/assets/1_dashboard_styles.css'
-    ], 
+    ],
     meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1"},
     ]
@@ -37,18 +37,20 @@ header = dbc.Container(children=[
     dbc.Row([
         dbc.Col(
             html.H3('Airport Traffic Dashboard',
-                style={
-                    'textAlign': 'center'
-                }),
+                    style={
+                        'textAlign': 'center'
+                    }),
             xs=12, md=12, lg=12, xl=12,
         )
     ], justify='center',
-    style={'backgroundColor': 'rgb(229, 236, 246)'}),
+        style={'backgroundColor': 'rgb(229, 236, 246)'}),
     dbc.Row([
         dbc.Col(
             html.Div([
                 dcc.Dropdown(
-                    options=[{'label': x, 'value': x} for x in ds.get_list_of_states(dataset)],
+                    options=[
+                        {'label': x, 'value': x} for x in ds.get_list_of_states(dataset)
+                    ],
                     id='states_list',
                     multi=True,
                     clearable=True,
@@ -58,14 +60,16 @@ header = dbc.Container(children=[
                         'borderColor': 'transparent'
                     }
                 )
-            ])
-            ,xs=12, md=12, lg=3, xl=3,
+            ]),
+            xs=12, md=12, lg=3, xl=3,
             align='center'
         ),
         dbc.Col(
             html.Div([
                 dcc.Dropdown(
-                    options=[{'label': x, 'value': x} for x in ds.get_list_of_airports(dataset)],
+                    options=[
+                        {'label': x, 'value': x} for x in ds.get_list_of_airports(dataset)
+                    ],
                     id='airports_list',
                     multi=True,
                     clearable=True,
@@ -75,22 +79,19 @@ header = dbc.Container(children=[
                         'borderColor': 'transparent'
                     }
                 )
-            ])
-            ,xs=12, md=12, lg=3, xl=3,
-            align='center'
+            ]), xs=12, md=12, lg=3, xl=3, align='center'
         ),
         dbc.Col(
             html.Div([
-            dcc.DatePickerRange(
+                dcc.DatePickerRange(
                     id='period_selection',
                     min_date_allowed=ds.get_date(dataset, min),
                     max_date_allowed=ds.get_last_date(dataset),
                     start_date=ds.get_date(dataset, min),
                     end_date=ds.get_date(dataset, max)
                 )
-            ], className='period_and_movement')
-            ,xs=6, md=6, lg=3, xl=3,
-            align='center'
+            ], className='period_and_movement'
+            ), xs=6, md=6, lg=3, xl=3, align='center'
         ),
         dbc.Col(
             html.Div([
@@ -101,11 +102,11 @@ header = dbc.Container(children=[
                     switch=True,
                     inline=True
                 )
-            ], className='period_and_movement')
-            ,xs=6, md=6, lg=3, xl=3,
-            align='center'
+            ], className='period_and_movement'
+            ), xs=6, md=6, lg=3, xl=3, align='center'
         )
-    ], justify='center',
+    ],
+    justify='center',
     className='control_container',
     style={'margin-bottom': '1%'}
     )
@@ -119,10 +120,9 @@ content = html.Div(
                     html.H5("Evolution of number of flights", className='section_title'),
                     dcc.Graph(
                         id='number_of_flights',
-                        config={'displaylogo':False}
+                        config={'displaylogo': False}
                     )
-                ])
-                ,xs=12, md=12, lg=12, xl=12
+                ]),xs=12, md=12, lg=12, xl=12
             )
         ]),
     ], fluid=True)
@@ -138,7 +138,7 @@ state_summary_container = dbc.Container(
                 ),
                 dcc.Graph(
                     id='map_summary',
-                    config={'displaylogo':False}
+                    config={'displaylogo': False}
                 )
             ])
         )
@@ -148,12 +148,12 @@ state_summary_container = dbc.Container(
 combined_container = html.Div([dbc.Container(children=[
     dbc.Row([
         dbc.Col(
-            content
-            ,xs=12, md=12, lg=7, xl=7
+            content,
+            xs=12, md=12, lg=7, xl=7
         ),
         dbc.Col(
-            state_summary_container
-            ,xs=12, md=12, lg=5, xl=5
+            state_summary_container,
+            xs=12, md=12, lg=5, xl=5
         ) 
     ]),
     dbc.Row([
@@ -162,11 +162,10 @@ combined_container = html.Div([dbc.Container(children=[
                 html.H5("Seasonal variability of traffic", className='section_title'),
                 dcc.Graph(
                     id='seasonal_variability',
-                    config={'displaylogo':False},
+                    config={'displaylogo': False},
                     style={'margin-left': '2%'}
                 )
-            ])
-            ,xs=12, md=12, lg=8, xl=8
+            ]), xs=12, md=12, lg=8, xl=8
         ),
         dbc.Col([
                 html.Div([
@@ -181,7 +180,7 @@ combined_container = html.Div([dbc.Container(children=[
                         className='top_flights_table'
                     )
                 ])
-            ],xs=12, md=12, lg=2, xl=2
+            ], xs=12, md=12, lg=2, xl=2
         ),
         dbc.Col([
                 html.Div([
@@ -196,8 +195,8 @@ combined_container = html.Div([dbc.Container(children=[
                         className='top_flights_table'
                     )
                 ])
-            ],xs=12, md=12, lg=2, xl=2,
-            )
+            ], xs=12, md=12, lg=2, xl=2,
+        )
     ], style={'margin-top': '1%'}
     )
 ], fluid=True)
@@ -231,15 +230,11 @@ footer = html.Footer(
             'font-size': '90%',
             'margin-top': '1%',
             'margin-left': '1%',
-            'margin-right': '1%'},   
+            'margin-right': '1%'},
     )
 )
 
-app.layout=html.Div(children=[
-    # html.H3('Airport Traffic Dashboard', style={
-    #    'textAlign': 'center',
-    #    'margin': '20px'
-    # }, className='main-wrapper'),
+app.layout = html.Div(children=[
     header,
     combined_container,
     footer
@@ -249,13 +244,13 @@ app.layout=html.Div(children=[
 def generate_table(data, id, source):
     generated_table = dash_table.DataTable(
         id=id,
-        columns = [
+        columns=[
             {
-            'name': 'Airport', 
-            'id': c.AIRPORT_NAME
+                'name': 'Airport',
+                'id': c.AIRPORT_NAME
             },
             {
-                'name': 'Daily average flights', 
+                'name': 'Daily average flights',
                 'id': c.DAILY_AVERAGE,
                 'type': 'numeric',
                 'format': Format(precision=1, scheme=Scheme.fixed)
@@ -279,9 +274,6 @@ def generate_table(data, id, source):
         data=ds.get_top_flight_airports(data, source).to_dict('records')
     )
     return generated_table
-
-
-
 
 
 @app.callback(
@@ -322,15 +314,16 @@ def update_airports_list(states):
 def update_airports_tables(states, start_date, end_date):
     filtered_dataset = ds.filter_dataset(
         data=dataset,
-        states=states, 
-        start_date=start_date, 
+        states=states,
+        start_date=start_date,
         end_date=end_date
     )
     returned_tables = (
-        generate_table(filtered_dataset, 'top_5_nm_airports', 'NM'), 
+        generate_table(filtered_dataset, 'top_5_nm_airports', 'NM'),
         generate_table(filtered_dataset, 'top_5_apt_airports', 'APT')
     )
     return returned_tables
+
 
 @app.callback(
     Output('number_of_flights', 'figure'),
@@ -341,7 +334,6 @@ def update_airports_tables(states, start_date, end_date):
     Input('period_selection', 'end_date')
 )
 def update_number_of_flights_figure(airports, states, ifr_movements, start_date, end_date):
-    
     filtered_dataset = ds.filter_dataset(
         data=dataset,
         airports=airports,
@@ -409,7 +401,7 @@ def update_seasonal_variability(airports, states, ifr_movements, start_date, end
         start_date=start_date,
         end_date=end_date
     )
-    
+
     flight_columns = ds.get_flight_columns(ifr_movements)
 
     graph_data = ds.get_average_per_month(filtered_dataset, flight_columns)
@@ -465,23 +457,27 @@ def update_map_summary(ifr_movements, start_date, end_date):
     graph_data = ds.get_daily_average_per_state(filtered_dataset, flight_columns)
     graph_data = graph_data[[c.STATE_NAME, flight_columns[0]]]
 
-    fig_map_summary = px.choropleth(graph_data, geojson=countries, locations=c.STATE_NAME, color=flight_columns[0],
-                           color_continuous_scale="Viridis",
-                           range_color=(0, max(graph_data[flight_columns[0]])),
-                           featureidkey="properties.NAME",
-                           scope="europe",
-                           labels={flight_columns[0]:'Number of flights<br>on {}'.format(
-                               final_date.strftime('%d/%m/%Y')
-                           )}
+    fig_map_summary = px.choropleth(
+        graph_data,
+        geojson=countries,
+        locations=c.STATE_NAME,
+        color=flight_columns[0],
+        color_continuous_scale="Viridis",
+        range_color=(0, max(graph_data[flight_columns[0]])),
+        featureidkey="properties.NAME",
+        scope="europe",
+        labels={
+            flight_columns[0]: 'Number of flights<br>on {}'.format(
+                final_date.strftime('%d/%m/%Y')
+                )
+        }
     )
 
     fig_map_summary.update_geos(fitbounds="locations", visible=False)
-    fig_map_summary.update_layout(margin={"r":0,"t":20,"l":0,"b":30})
+    fig_map_summary.update_layout(margin={"r": 0, "t": 20, "l": 0, "b": 30})
 
     return fig_map_summary
 
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-
-# 229, 236, 246

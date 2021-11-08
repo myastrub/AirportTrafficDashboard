@@ -6,7 +6,11 @@ from datetime import timedelta
 dataset = pd.read_csv('datasets/Airport_Traffic.csv', delimiter=';')
 dataset[c.DATE] = pd.to_datetime(dataset[c.DATE], format='%d/%m/%Y')
 
+
 def has_airport_data(data):
+    """
+    Checks if a dataset has values reported by Airport
+    """
     if (c.AIRPORT_DEP_FLIGHTS in data.columns or
         c.AIRPORT_ARR_FLIGHTS in data.columns or
         c.AIRPORT_TOTAL_FLIGHTS in data.columns):
@@ -14,7 +18,11 @@ def has_airport_data(data):
     else:
         return False
 
+
 def filter_dataset_by_date(data, start_date, end_date):
+    """
+    Filters dataset based on the start and end date
+    """
     if start_date is None:
         beginning_date = pd.to_datetime(get_date(data, min))
     else:
@@ -25,23 +33,24 @@ def filter_dataset_by_date(data, start_date, end_date):
         ending_date = pd.to_datetime(end_date)
 
     filtered_dataset = data[
-        data[c.DATE].ge(beginning_date)
-        & data[c.DATE].le(ending_date)
+        data[c.DATE].ge(beginning_date) &
+        data[c.DATE].le(ending_date)
     ]
-
     return filtered_dataset
-    
+
 
 def filter_dataset(data, airports=None, states=None, start_date=None, end_date=None):
-    
+    """
+    Filters dataset based on the specified filters.
+    """
     filtered_dataset = filter_dataset_by_date(
         data, start_date, end_date
     )
-    
+
     if airports and states:
         filtered_dataset = filtered_dataset[
-            filtered_dataset[c.AIRPORT_NAME].isin(airports)
-            & filtered_dataset[c.STATE_NAME].isin(states)
+            filtered_dataset[c.AIRPORT_NAME].isin(airports) &
+            filtered_dataset[c.STATE_NAME].isin(states)
         ]
     elif (airports is None or airports == []) and states:
         filtered_dataset = filtered_dataset[
@@ -51,22 +60,32 @@ def filter_dataset(data, airports=None, states=None, start_date=None, end_date=N
         filtered_dataset = filtered_dataset[
             filtered_dataset[c.AIRPORT_NAME].isin(airports)
         ]
-    
     return filtered_dataset
 
 
 def get_date(data, func):
+    """
+    Returns first (min) or last (max) date from a dataset
+    """
     return pd.to_datetime(
         str(func(data[c.DATE].unique()))
     ).strftime('%m/%d/%Y')
 
+
 def get_last_date(data):
+    """
+    Returns last (max) date + 1 day from a dataset
+    """
     return pd.to_datetime(
         str(max(data[c.DATE].unique()) + np.timedelta64(1, 'D'))
     ).strftime('%m/%d/%Y')
 
 
 def get_flight_columns(ifr_movements):
+    """
+    Based on the selected IFR movement returns a list with
+    columns where the values are stored.
+    """
     if len(ifr_movements) == 2 or len(ifr_movements) == 0:
         flight_columns = [c.NM_TOTAL_FLIGHTS, c.AIRPORT_TOTAL_FLIGHTS]
     elif ifr_movements[0] == 'Arrival':
@@ -74,6 +93,7 @@ def get_flight_columns(ifr_movements):
     elif ifr_movements[0] == 'Departure':
         flight_columns = [c.NM_DEP_FLIGHTS, c.AIRPORT_DEP_FLIGHTS]
     return flight_columns
+
 
 def get_number_of_flights(data, flight_columns):
     """
@@ -107,7 +127,7 @@ def get_top_flight_airports(data, source='NM'):
     if not pivot.empty:
         pivot = pivot.reset_index()
         pivot = pivot.rename(columns={
-            flight_column:c.DAILY_AVERAGE
+            flight_column: c.DAILY_AVERAGE
         })
         pivot = pivot.sort_values(by=c.DAILY_AVERAGE, ascending=False)
         return pivot.head()
@@ -149,7 +169,6 @@ def get_average_per_month(data, flight_columns):
     pivot = pivot.sort_values(by=c.MONTH_NUM)
     pivot = pivot.reset_index()
     return pivot
-    
 
 
 def get_list_of_states(data):
