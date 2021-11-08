@@ -133,7 +133,7 @@ state_summary_container = dbc.Container(
          dbc.Col(
             html.Div([
                 html.H5(
-                    "Daily average flights per state",
+                    "Daily number of flights per state",
                     className='section_title'
                 ),
                 dcc.Graph(
@@ -371,7 +371,7 @@ def update_number_of_flights_figure(airports, states, ifr_movements, start_date,
                     graph_data[flight_columns[1]], 53, 3
                 ),
                 mode='lines',
-                name='Number of flights (recorded by airports)'
+                name='Number of flights (recorded by airports)',
             )
         )
 
@@ -380,8 +380,9 @@ def update_number_of_flights_figure(airports, states, ifr_movements, start_date,
         yanchor="bottom",
         y=1.02,
         xanchor="right",
-        x=1
+        x=1,
     ))
+    
     return fig_number_of_flights
 
 
@@ -470,6 +471,10 @@ def update_map_summary(ifr_movements, start_date, end_date):
             flight_columns[0]: 'Number of flights<br>on {}'.format(
                 final_date.strftime('%d/%m/%Y')
                 )
+        },
+        hover_name=c.STATE_NAME,
+        hover_data={
+            c.STATE_NAME: False
         }
     )
 
