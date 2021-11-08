@@ -204,42 +204,36 @@ combined_container = html.Div([dbc.Container(children=[
 ])
 
 
-
-footer = dbc.Container(children=[
-    dbc.Row(
-        dbc.Col(
-            html.Footer(
-                html.Div(
-                    children=[
-                        html.Hr(style={"border-color": "#fff"}),
-                        html.H5(
-                             "About airport traffic dashboard"
-                        ),
-                        html.P(
-                            children=[
-                                "This small dashboard has been created using the data coming from EUROCONTROL, the European Organisation for the Safety of Air Navigation.",
-                                html.Br(),
-                                "The dataset used in the dashboard can be found on  ",
-                                html.A(
-                                    href="https://ansperformance.eu/data/",
-                                    children="Aviation Intelligence Portal",
-                                ),
-                                ".",
-                                html.Br(),
-                                "The credits for the map of Europe go to Justas (",
-                                html.A(
-                                    href="https://github.com/leakyMirror",
-                                    children="leakyMirror"
-                                ),
-                                ")."
-                            ]
-                        ),
-                    ], style={'font-size': '90%'},   
-                )
-            )
-        )
+footer = html.Footer(
+    html.Div(
+        children=[
+            html.Hr(style={"border-color": "#fff"}),
+            html.H5("About airport traffic dashboard"),
+            html.P(children=[
+                "This small dashboard has been created using the data coming from EUROCONTROL, the European Organisation for the Safety of Air Navigation.",
+                html.Br(),
+                "The dataset used in the dashboard can be found on  ",
+                html.A(
+                    href="https://ansperformance.eu/data/",
+                    children="Aviation Intelligence Portal",
+                ),
+                ".",
+                html.Br(),
+                "The credits for the map of Europe go to Justas (",
+                html.A(
+                    href="https://github.com/leakyMirror",
+                    children="leakyMirror"
+                ),
+                ")."
+            ]
+            ),
+        ], style={
+            'font-size': '90%',
+            'margin-top': '1%',
+            'margin-left': '1%',
+            'margin-right': '1%'},   
     )
-], style={'margin-left': '5%'})
+)
 
 app.layout=html.Div(children=[
     # html.H3('Airport Traffic Dashboard', style={
