@@ -509,7 +509,7 @@ def update_map_summary(ifr_movements, start_date, end_date):
                            featureidkey="properties.NAME",
                            scope="europe",
                            labels={flight_columns[0]:'Number of flights<br>on {}'.format(
-                               final_date.strftime('%d/%m%/%Y')
+                               final_date.strftime('%d/%m/%Y')
                            )}
     )
 
