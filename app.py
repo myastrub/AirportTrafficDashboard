@@ -128,37 +128,6 @@ content = html.Div(
     ], fluid=True)
 )
 
-table_container = html.Div(
-    dbc.Container(children=[
-        dbc.Row([
-            dbc.Col([
-                html.Div([
-                    html.H5(
-                        "Top 5 Airports (NM recorded flights)",
-                        className='section_title',
-                        style={'margin-bottom': '4%'}),
-                    html.Div([], id='div_top_5_nm_airports')
-                ])
-            ],xs=12, md=12, lg=12, xl=12)
-        ]),
-        dbc.Row([
-            dbc.Col([
-                html.Div([
-                    html.H5(
-                        "Top 5 Airports (Airport recorded flights)", 
-                        className='section_title',
-                        style={
-                            'margin-bottom': '4%',
-                            'margin-top': '3%'
-                            }),
-                    html.Div([], id='div_top_5_apt_airports')
-                ])
-            ],xs=12, md=12, lg=12, xl=12)
-        ])
-        
-    ], fluid=True)
-)
-
 state_summary_container = dbc.Container(
     dbc.Row(
          dbc.Col(
@@ -207,11 +176,10 @@ combined_container = html.Div([dbc.Container(children=[
                     ),
                     html.H6(
                         "(NM recorded flights)",
-                        className='section_title',
-                        style={'margin-bottom': '4%'}),
-                    html.Div([
-                        # generate_table(dataset, 'top_5_nm_airports', 'NM')
-                    ], id='div_top_5_nm_airports')
+                        className='section_subtitle'),
+                    html.Div([], id='div_top_5_nm_airports',
+                        className='top_flights_table'
+                    )
                 ])
             ],xs=12, md=12, lg=2, xl=2
         ),
@@ -223,13 +191,13 @@ combined_container = html.Div([dbc.Container(children=[
                     ),
                     html.H6(
                         "(Airport recorded flights)",
-                        className='section_title',
-                        style={'margin-bottom': '4%'}),
-                    html.Div([
-                        # generate_table(dataset, 'top_5_apt_airports', 'APT')
-                    ], id='div_top_5_apt_airports')
+                        className='section_subtitle'),
+                    html.Div([], id='div_top_5_apt_airports',
+                        className='top_flights_table'
+                    )
                 ])
-            ],xs=12, md=12, lg=2, xl=2)
+            ],xs=12, md=12, lg=2, xl=2,
+            )
     ], style={'margin-top': '1%'}
     )
 ], fluid=True)
@@ -266,12 +234,12 @@ footer = dbc.Container(children=[
                                 ")."
                             ]
                         ),
-                    ], style={"font-size": "90%"},   
+                    ], style={'font-size': '90%'},   
                 )
             )
         )
     )
-])
+], style={'margin-left': '5%'})
 
 app.layout=html.Div(children=[
     # html.H3('Airport Traffic Dashboard', style={
